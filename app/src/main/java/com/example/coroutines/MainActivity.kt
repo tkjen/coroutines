@@ -15,8 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private var count = 0;
-    private var isLoading = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,27 +23,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnStart.setOnClickListener {
-            requestData()
-
-        }
-
-        binding.btnCount.setOnClickListener{
-            if(!isLoading){
-                count++
-                binding.tvData.text = "count:${count}"
-            }
-        }
-
     }
 
-    private fun requestData() {
-        Log.d("MainActivity", "requestData on ${Thread.currentThread().name}")
-        Thread.sleep(2000L)
-        binding.progressBar.visibility = ProgressBar.GONE
-        isLoading = true
-        binding.tvData.text = "Data from sever"
-    }
+
 
 
 }
