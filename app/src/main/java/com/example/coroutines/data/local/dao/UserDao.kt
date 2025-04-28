@@ -8,11 +8,15 @@ import com.example.coroutines.data.local.entity.User
 
 @Dao
 interface UserDao {
+
     @Query("SELECT * FROM user")
     suspend fun getAll(): List<User>
 
     @Insert
     suspend fun insertAll(users: List<User>)
+
+    @Insert
+    suspend fun insertUser(user: User)
 
     @Delete
     suspend fun delete(user: User)

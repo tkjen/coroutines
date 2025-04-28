@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
+    // id("kotlin-kapt") // Không cần nếu chuyển hết sang KSP
+    id("com.google.devtools.ksp") // Giữ lại KSP
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -38,9 +40,12 @@ android {
     viewBinding {
         enable = true
     }
+
 }
 val room_version = "2.6.1"
-val lifecycle_version = "2.8.7"
+val lifecycle_version = "2.7.0" // Sửa phiên bản
+val coroutines_version = "1.8.0" // Sửa phiên bản
+val hilt_version = "2.51.1" // Sửa phiên bản
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -54,18 +59,25 @@ dependencies {
 
 
     // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    // Room
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Room (Dùng KSP)
     implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$room_version") // CHỈ DÙNG KSP
     implementation("androidx.room:room-ktx:$room_version")
+
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
 
-    //Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+
+    // Hilt (Dùng KSP)
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    ksp("com.google.dagger:hilt-android-compiler:$hilt_version")
+
+
 
 
 }
