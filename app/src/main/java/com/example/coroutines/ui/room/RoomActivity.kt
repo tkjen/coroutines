@@ -3,32 +3,46 @@ package com.example.coroutines.ui.room
 // import DatabaseHelperImpl // KHÔNG CẦN import này nữa
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels // Đảm bảo import này tồn tại
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coroutines.data.local.entity.User
 import com.example.coroutines.databinding.ActivityRoomBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint // Đúng
+@AndroidEntryPoint
 class RoomActivity : AppCompatActivity() {
 
-    // Dòng này ĐÚNG - Hilt sẽ cung cấp ViewModel thông qua delegate này
+
     private val viewModel: RoomViewModel by viewModels()
-
     private lateinit var binding: ActivityRoomBinding
-
-    // Lưu ý: việc quản lý ID thủ công này có thể không cần thiết
-    // nếu bạn đặt id là khóa chính tự tăng trong Room Entity (@PrimaryKey(autoGenerate = true))
     private var userId = 1
-
+    private lateinit var userAdapter: UserAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityRoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setupRecyclerView()
+        observeViewModel()
         setupClickListeners()
 
+    }
+
+    private fun setupRecyclerView() {
+        userAdapter = UserAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@RoomActivity)
+            adapter = userAdapter
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.users.observe(this) { users ->
+            binding.progressbar.visibility = View.GONE
+            userAdapter.setUsers(users)
+        }
     }
 
     private fun setupClickListeners() {
@@ -40,9 +54,9 @@ class RoomActivity : AppCompatActivity() {
 
             if (name.isNotEmpty() && email.isNotEmpty() && avatar.isNotEmpty()) {
                 // Nếu ID tự tăng, bạn không cần truyền id:
-                // val user = User(name = name, email = email, avatar = avatar)
+                val user = User(name = name, email = email, avatar = avatar)
                 // Nếu ID quản lý thủ công:
-                val user = User(id = userId++, name = name, email = email, avatar = avatar)
+               // val user = User(id = userId++, name = name, email = email, avatar = avatar)
 
                 // ViewModel lấy từ "by viewModels()" sẽ được sử dụng ở đây
                 viewModel.insertUser(user)
@@ -55,19 +69,12 @@ class RoomActivity : AppCompatActivity() {
                 binding.etEmail.text.clear()
                 binding.etAvatar.text.clear()
 
+
+
             } else {
-                // Có thể thêm thông báo lỗi cho người dùng
+                Toast.makeText(this, "Co loi gi do ", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    /*
-    private fun observeViewModel() {
-        // Ví dụ observe trạng thái loading hoặc danh sách users từ ViewModel
-        viewModel.isLoading.observe(this) { isLoading ->
-             binding.progressbar.visibility = if(isLoading) View.VISIBLE else View.GONE
-        }
-        // viewModel.users.observe(this) { users -> ... }
-    }
-    */
 }
