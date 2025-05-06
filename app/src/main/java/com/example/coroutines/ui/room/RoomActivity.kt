@@ -1,10 +1,9 @@
 package com.example.coroutines.ui.room
 
-// import DatabaseHelperImpl // KHÔNG CẦN import này nữa
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels // Đảm bảo import này tồn tại
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coroutines.data.local.entity.User
@@ -16,6 +15,7 @@ class RoomActivity : AppCompatActivity() {
 
 
     private val viewModel: RoomViewModel by viewModels()
+
     private lateinit var binding: ActivityRoomBinding
     private var userId = 1
     private lateinit var userAdapter: UserAdapter

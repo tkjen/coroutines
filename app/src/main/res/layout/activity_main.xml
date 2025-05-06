@@ -27,6 +27,12 @@
             android:layout_height="wrap_content"
             android:text="@string/room_database"
             android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/btnCallNetwork"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Single Network Call"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 </ScrollView>

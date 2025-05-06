@@ -28,18 +28,17 @@ abstract class DatabaseModule {
     companion object {
         @Provides
         @Singleton
-        // Hilt cần biết kiểu AppDatabase này đến từ đâu
         fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
             return Room.databaseBuilder(
                 appContext,
-                AppDatabase::class.java, // Class này cũng phải được resolve
+                AppDatabase::class.java,
                 "learn-kotlin-coroutines"
             ).build()
         }
 
         @Provides
         @Singleton
-        fun provideUserDao(appDatabase: AppDatabase): UserDao { // Tham số này cũng cần được resolve
+        fun provideUserDao(appDatabase: AppDatabase): UserDao {
             return appDatabase.userDao()
         }
     }

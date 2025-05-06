@@ -1,11 +1,12 @@
 package com.example.coroutines.data.api
 
 import com.example.coroutines.data.model.ApiUser
+import kotlinx.coroutines.flow.Flow
 
 interface ApiHelper {
-    suspend fun getUsers(): List<ApiUser>
+    fun getUsers(): Flow<List<ApiUser>>
 
-    suspend fun getMoreUsers(): List<ApiUser>
+     fun getMoreUsers(): Flow<List<ApiUser>>
 
-    suspend fun getUsersWithError(): List<ApiUser>
+     fun getUsersWithError(): Flow<List<ApiUser>>
 }

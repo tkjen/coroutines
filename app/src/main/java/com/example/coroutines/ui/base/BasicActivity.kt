@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coroutines.R
 import com.example.coroutines.databinding.ActivityMainBinding
+import com.example.coroutines.ui.retrofit.SingleNetworkCallActivity
 import com.example.coroutines.ui.room.RoomActivity
 import dagger.hilt.android.HiltAndroidApp
 
@@ -23,6 +24,9 @@ class BasicActivity : AppCompatActivity() {
         }
         binding.btnRoom.setOnClickListener {
             startActivity(Intent(this, RoomActivity::class.java))
+        }
+        binding.btnCallNetwork.setOnClickListener{
+            startActivity(Intent(this, SingleNetworkCallActivity::class.java))
         }
 
     }

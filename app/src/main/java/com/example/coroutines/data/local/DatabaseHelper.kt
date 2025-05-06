@@ -10,6 +10,4 @@ interface DatabaseHelper {
     suspend fun insertUsers(user: User)
     suspend fun insertAll(users: List<User>)
 
-
-
 }

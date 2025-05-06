@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".ui.MyApplication"
         android:allowBackup="true"
@@ -26,6 +27,9 @@
         </activity>
         <activity
             android:name="com.example.coroutines.ui.room.RoomActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.coroutines.ui.retrofit.SingleNetworkCallActivity"
             android:exported="false" />
     </application>
 
