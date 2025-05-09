@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.coroutines.data.api.ApiHelper
+import com.example.coroutines.data.local.DatabaseHelper
 import com.example.coroutines.data.model.ApiUser
 import com.example.coroutines.utils.Resource
+import com.example.coroutines.utils.toUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SingleNetworkCallViewModel @Inject constructor(
-    private val apiHelper: ApiHelper
+    private val apiHelper: ApiHelper,
+    private val databaseHelper: DatabaseHelper
 ) : ViewModel() {
 
     private val _users = MutableStateFlow<Resource<List<ApiUser>>>(Resource.Loading())
@@ -32,6 +35,9 @@ class SingleNetworkCallViewModel @Inject constructor(
                 }
                 .collect { result ->
                     _users.value = Resource.Success(result)
+
+                    val localUsers = result.map { it.toUser() }
+                    databaseHelper.insertAll(localUsers)
                 }
         }
     }

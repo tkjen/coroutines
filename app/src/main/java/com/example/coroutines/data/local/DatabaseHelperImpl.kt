@@ -1,7 +1,5 @@
 
 package com.example.coroutines.data.local
-import com.example.coroutines.data.local.AppDatabase
-import com.example.coroutines.data.local.DatabaseHelper
 import com.example.coroutines.data.local.entity.User
 import javax.inject.Inject
 import javax.inject.Singleton

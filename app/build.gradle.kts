@@ -41,6 +41,7 @@ android {
         enable = true
     }
 
+
 }
 val room_version = "2.6.1"
 val lifecycle_version = "2.7.0" // Sửa phiên bản
@@ -77,7 +78,17 @@ dependencies {
     implementation("com.google.dagger:hilt-android:$hilt_version")
     ksp("com.google.dagger:hilt-android-compiler:$hilt_version")
 
+    // Testing dependencies
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:5.3.1")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0") // Mockito for Kotlin
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("app.cash.turbine:turbine:1.0.0") // For Flow testing
+    testImplementation("androidx.arch.core:core-testing:2.2.0") // For InstantTaskExecutorRule
 
+// Android testing
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 
 }
