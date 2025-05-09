@@ -28,12 +28,10 @@ class SingleNetworkCallViewModel @Inject constructor(
             apiHelper.getUsers()
                 .flowOn(Dispatchers.IO)
                 .catch { e ->
-                    // Xử lý lỗi (có thể log hoặc hiển thị thông báo)
-
-                    _users.value = Resource.Error(e.message ?: "Unknown Error") // Ví dụ: có thể đặt giá trị rỗng hoặc thông báo lỗi
+                    _users.value = Resource.Error(e.message ?: "Unknown Error")
                 }
                 .collect { result ->
-                    _users.value = Resource.Success(result) // Cập nhật dữ liệu vào _users
+                    _users.value = Resource.Success(result)
                 }
         }
     }
